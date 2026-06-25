@@ -1,106 +1,615 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abdulrahman's Space Station</title>
-  <style>
-    :root{--space:#06112f;--space2:#0c1f4a;--card:rgba(255,255,255,.12);--border:rgba(255,255,255,.22);--blue:#35b7ff;--cyan:#7df9ff;--gold:#ffd166;--pink:#ff7eb6;--green:#8cffc1;--text:#fff;--muted:#cbd8ff;--danger:#ffb4b4}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 15% 5%,#25417f 0,#081435 44%,#020713 100%);min-height:100vh;overflow-x:hidden}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1.2px),radial-gradient(#77d7ff 1px,transparent 1.2px);background-size:54px 54px,94px 94px;background-position:0 0,22px 17px;opacity:.22;animation:stars 95s linear infinite}@keyframes stars{to{background-position:800px 1000px,950px 700px}}
-    .wrap{position:relative;z-index:1;max-width:1180px;margin:auto;padding:20px} header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0 20px}.brand{display:flex;gap:14px;align-items:center}.logo{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,var(--blue),var(--pink));font-size:34px;box-shadow:0 0 28px rgba(53,183,255,.55)}h1{font-size:clamp(28px,5vw,52px);margin:0}.brand p{margin:3px 0 0;color:var(--muted)}nav{display:flex;gap:8px;flex-wrap:wrap}button,.btn{border:1px solid var(--border);background:rgba(255,255,255,.11);color:#fff;padding:11px 15px;border-radius:999px;cursor:pointer;font-weight:800;backdrop-filter:blur(8px)}button:hover,.activeBtn{background:linear-gradient(135deg,var(--blue),#7a5cff);border-color:transparent;transform:translateY(-1px)}.page{display:none;animation:fade .35s ease}.page.active{display:block}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-    .hero,.card{background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.07));border:1px solid var(--border);border-radius:34px;padding:28px;margin:18px 0;box-shadow:0 20px 70px rgba(0,0,0,.22);backdrop-filter:blur(12px)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}.mini{background:rgba(255,255,255,.1);border:1px solid var(--border);border-radius:24px;padding:18px}.bigEmoji{font-size:52px}.tag{display:inline-block;margin:4px 4px 0 0;padding:8px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid var(--border);font-weight:800}.muted{color:var(--muted)}.gold{color:var(--gold)}.green{color:var(--green)}.pink{color:var(--pink)}a{color:#66caff}.cat{min-height:210px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,rgba(255,126,182,.22),rgba(53,183,255,.16));border:1px dashed rgba(255,255,255,.35);border-radius:26px;font-size:24px;padding:20px}.cat span{font-size:76px;display:block}
-    label{font-weight:900;display:block;margin:12px 0 7px}select,input,textarea{width:100%;border:1px solid var(--border);background:rgba(255,255,255,.13);color:#fff;border-radius:20px;padding:14px 16px;font-size:18px;outline:none}select option{color:#111}textarea{min-height:190px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:680px){.row{grid-template-columns:1fr}.wrap{padding:14px}.hero,.card{padding:20px;border-radius:26px}nav button{flex:1}.brand{align-items:flex-start}.logo{width:56px;height:56px}}
-    .preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.preview img,.newsImg{width:100%;max-height:220px;object-fit:cover;border-radius:18px;border:1px solid var(--border)}.entry{border-left:5px solid var(--cyan);padding:14px;margin:12px 0;background:rgba(255,255,255,.09);border-radius:18px}.entry img{max-width:160px;border-radius:14px;margin:6px}.notice{padding:12px 14px;border-radius:16px;background:rgba(255,209,102,.14);color:var(--gold);border:1px solid rgba(255,209,102,.35);font-weight:800}.success{background:rgba(140,255,193,.13);border-color:rgba(140,255,193,.35);color:var(--green)}.danger{background:rgba(255,120,120,.13);border-color:rgba(255,180,180,.35);color:var(--danger)}
-    .planet{min-height:170px}.planet h3,.mini h3{margin-top:0}.quiz .choice{display:block;width:100%;text-align:left;margin:8px 0;border-radius:16px}.hidden{display:none}.loader{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:8px}@keyframes spin{to{transform:rotate(360deg)}}
-    @media print{body{background:#fff;color:#111}.wrap{max-width:100%;padding:0}header,nav,.noPrint,.btn,button,#savedEntries{display:none!important}.card,.hero{box-shadow:none;border:1px solid #aaa;color:#111;background:#fff}.page{display:block}.page:not(#journal){display:none}.muted,.gold,.green,.pink{color:#111}input,textarea,select{color:#111;border:1px solid #999;background:#fff}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Abdulrahman Explorer's Club</title>
+
+<style>
+:root{
+  --bg:#030814;
+  --card:rgba(6,18,42,.72);
+  --card2:rgba(8,22,48,.82);
+  --line:rgba(255,255,255,.16);
+  --text:#ffffff;
+  --muted:#c9d4ee;
+  --gold:#ffc857;
+  --blue:#497cff;
+  --cyan:#19d7c4;
+  --purple:#7b61ff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 0% 42%, rgba(255,176,65,.75) 0 1.8%, rgba(255,176,65,.18) 4%, transparent 13%),
+    radial-gradient(circle at 80% 22%, rgba(255,255,255,.95) 0 4.2%, rgba(255,255,255,.15) 9%, transparent 15%),
+    radial-gradient(circle at 30% 22%, rgba(93,117,255,.25), transparent 22%),
+    radial-gradient(circle at 72% 58%, rgba(89,31,255,.20), transparent 28%),
+    linear-gradient(180deg,#020714 0%,#06142c 45%,#020915 100%);
+  overflow-x:hidden;
+}
+
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(#fff 1px, transparent 1px),
+    radial-gradient(#9db7ff 1px, transparent 1px),
+    radial-gradient(#ffd37a 1px, transparent 1px);
+  background-size:90px 90px,140px 140px,190px 190px;
+  opacity:.55;
+}
+
+body:after{
+  content:"";
+  position:fixed;
+  left:-10%;
+  right:-10%;
+  bottom:-25%;
+  height:42%;
+  background:
+    radial-gradient(ellipse at center top, rgba(103,169,255,.75), transparent 9%),
+    radial-gradient(ellipse at center top, #142c55 0%, #071326 50%, #020713 72%);
+  border-radius:50% 50% 0 0;
+  box-shadow:0 -20px 80px rgba(76,148,255,.35);
+  pointer-events:none;
+}
+
+.sky-object.sun{
+  position:fixed;
+  left:-55px;
+  top:35%;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff6b3 0 10%,#ffc857 18%,#ff8a00 45%,transparent 70%);
+  filter:blur(.2px);
+  box-shadow:0 0 80px #ffae35;
+  z-index:0;
+}
+
+.sky-object.moon{
+  position:fixed;
+  right:12%;
+  top:13%;
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255,255,255,.55) 0 4%, transparent 5%),
+    radial-gradient(circle at 65% 42%, rgba(0,0,0,.22) 0 8%, transparent 9%),
+    radial-gradient(circle at 42% 67%, rgba(0,0,0,.18) 0 10%, transparent 11%),
+    radial-gradient(circle at 30% 40%, #f1e4cc,#9f927f 70%);
+  box-shadow:0 0 35px rgba(255,255,255,.25);
+  z-index:0;
+}
+
+.rocket{
+  position:fixed;
+  right:7%;
+  top:29%;
+  font-size:88px;
+  transform:rotate(-18deg);
+  filter:drop-shadow(0 0 24px rgba(255,188,84,.7));
+  z-index:0;
+}
+
+.wrap{
+  position:relative;
+  z-index:1;
+  max-width:1240px;
+  margin:auto;
+  padding:22px;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 24px;
+  border:1px solid var(--line);
+  background:rgba(1,8,22,.74);
+  backdrop-filter:blur(18px);
+  border-radius:28px;
+  margin-bottom:70px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:800;
+  font-size:20px;
+}
+
+.logo small{
+  display:block;
+  color:var(--gold);
+  font-size:14px;
+  margin-top:3px;
+}
+
+.links{
+  display:flex;
+  gap:26px;
+  flex-wrap:wrap;
+  font-size:15px;
+}
+
+.links a{
+  color:#eaf0ff;
+  text-decoration:none;
+  opacity:.92;
+  cursor:pointer;
+}
+
+.links a.active,
+.links a:hover{
+  color:var(--gold);
+}
+
+.badge{
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:12px 20px;
+  color:var(--gold);
+  background:rgba(255,255,255,.05);
+}
+
+.hero{
+  max-width:620px;
+  margin-left:110px;
+  margin-bottom:80px;
+}
+
+.hero h1{
+  font-size:52px;
+  line-height:1.05;
+  margin:0 0 18px;
+}
+
+.hero h2{
+  color:#94a9ff;
+  font-size:26px;
+  margin:0 0 22px;
+}
+
+.hero p{
+  color:#dbe4ff;
+  font-size:21px;
+  line-height:1.65;
+}
+
+.explore-btn{
+  margin-top:22px;
+  display:inline-flex;
+  gap:12px;
+  align-items:center;
+  padding:18px 34px;
+  border-radius:26px;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,rgba(73,124,255,.25),rgba(123,97,255,.20));
+  color:#dce4ff;
+  cursor:pointer;
+}
+
+.grid{
+  margin:0 auto;
+  max-width:1040px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.card{
+  background:linear-gradient(145deg,rgba(9,24,55,.82),rgba(4,13,31,.78));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:0 20px 50px rgba(0,0,0,.25);
+  backdrop-filter:blur(14px);
+}
+
+.card.big{grid-column:span 2}
+.card h3{
+  margin:0 0 14px;
+  font-size:22px;
+}
+
+.card p{
+  color:#d9e3ff;
+  line-height:1.7;
+  margin:0 0 18px;
+}
+
+.icon{
+  width:76px;
+  height:76px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size:36px;
+  margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(123,97,255,.45),rgba(18,215,196,.22));
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.card a,.card button{
+  color:#8ea7ff;
+  background:none;
+  border:0;
+  padding:0;
+  font-size:16px;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+  text-align:center;
+}
+
+.quick div{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.04);
+}
+
+.footer{
+  max-width:620px;
+  margin:28px auto 110px;
+  text-align:center;
+  padding:20px;
+  border-radius:28px;
+  border:1px solid var(--line);
+  background:rgba(3,13,31,.72);
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.form{
+  max-width:900px;
+  margin:0 auto 110px;
+}
+
+label{
+  display:block;
+  margin:16px 0 8px;
+  color:#dbe4ff;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:16px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.08);
+  color:white;
+  font-size:16px;
+}
+
+textarea{min-height:180px}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.btn{
+  padding:14px 22px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.entry{
+  margin-top:16px;
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+}
+
+.nasa-grid{
+  max-width:1040px;
+  margin:0 auto 110px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.nasa-img{
+  width:100%;
+  border-radius:18px;
+  margin-top:12px;
+  border:1px solid var(--line);
+}
+
+@media(max-width:900px){
+  nav{align-items:flex-start;flex-direction:column}
+  .hero{margin-left:0}
+  .hero h1{font-size:38px}
+  .grid,.nasa-grid{grid-template-columns:1fr}
+  .card.big{grid-column:span 1}
+  .links{gap:14px}
+  .moon{opacity:.45}
+  .rocket{opacity:.65;font-size:62px}
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand"><div class="logo">🚀</div><div><h1>Abdulrahman's Space Station</h1><p>Space, NASA, games, animals, and big ideas.</p></div></div>
-      <nav class="noPrint"><button class="activeBtn" onclick="showPage('home',this)">Home</button><button onclick="showPage('journal',this)">My Journal</button><button onclick="showPage('space',this)">NASA Live</button></nav>
-    </header>
+<div class="sky-object sun"></div>
+<div class="sky-object moon"></div>
+<div class="rocket">🚀</div>
 
-    <main>
-      <section id="home" class="page active">
-        <div class="hero">
-          <div class="grid">
-            <div>
-              <p class="tag">Junior Space Explorer</p>
-              <h2>Abdulrahman Abdullah Mutlaq Al-Azmi</h2>
-              <p class="muted">A curious 9-year-old explorer who loves learning about space, NASA, electronic games, and animals.</p>
-              <div><span class="tag">Space Science</span><span class="tag">NASA</span><span class="tag">Electronic Games</span><span class="tag">Animal Care</span></div>
-            </div>
-            <div class="cat"><div><span>🐈‍⬛✨</span><b>Layla</b><br><small>My white Siamese cat. She gives me allergies sometimes, but I still enjoy playing with her.</small></div></div>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="mini"><div class="bigEmoji">🪐</div><h3>Favorite Topic</h3><p>Space science, planets, rockets, astronauts, and NASA missions.</p></div>
-          <div class="mini"><div class="bigEmoji">🎮</div><h3>Fun Time</h3><p>Electronic games can build problem-solving skills when balanced with reading, family time, and outdoor play.</p></div>
-          <div class="mini"><div class="bigEmoji">💙</div><h3>Message</h3><p>From your loving dad, to the most precious and awesome boy in my eyes. ❤️🚀</p></div>
-        </div>
-      </section>
+<div class="wrap">
+  <nav>
+    <div class="logo">
+      <div style="font-size:36px">🚀</div>
+      <div>Abdulrahman <small>Explorer's Club</small></div>
+    </div>
 
-      <section id="journal" class="page">
-        <div class="card">
-          <h2>My Ideas, Goals & Memories ✍️</h2>
-          <p class="muted">Write anything you like. You can save it here, add pictures, and print it later.</p>
-          <div id="saveMsg"></div>
-          <div class="row">
-            <div><label>Choose the type</label><select id="entryType"><option value="Blog Post">Blog Post</option><option value="Future Goal">Future Goal</option><option value="Beautiful Memory">Beautiful Memory</option></select></div>
-            <div><label>Title</label><input id="entryTitle" placeholder="Example: My dream mission to Mars" /></div>
-          </div>
-          <label>Your writing</label><textarea id="entryText" placeholder="Start writing your thoughts here..."></textarea>
-          <label>Add pictures</label><input id="entryImages" type="file" accept="image/*" multiple onchange="previewImages(event)" />
-          <div id="imagePreview" class="preview"></div>
-          <p class="muted">Tip: on iPhone, smaller pictures save better.</p>
-          <button onclick="saveEntry()">Save Entry</button> <button onclick="window.print()">Print</button> <button onclick="clearForm()">Clear Form</button> <button onclick="clearAllEntries()">Delete Saved Entries</button>
-        </div>
-        <div class="card" id="savedEntries"><h2>Saved Entries</h2><div id="entriesList"></div></div>
-      </section>
+    <div class="links">
+      <a class="active" onclick="showPage('home',this)">🏠 Home</a>
+      <a onclick="showPage('journal',this)">📖 Journal</a>
+      <a onclick="showPage('memories',this)">🖼️ Memories</a>
+      <a onclick="showPage('nasa',this)">🪐 NASA</a>
+      <a onclick="showPage('goals',this)">🎯 Goals</a>
+      <a onclick="showPage('library',this)">📚 Library</a>
+      <a onclick="showPage('about',this)">ⓘ About</a>
+    </div>
 
-      <section id="space" class="page">
-        <div class="hero">
-          <h2>NASA & Space Explorer 🛰️</h2>
-          <p class="muted">This dashboard loads space content from NASA public sources when your internet connection allows it. It also includes accurate space facts written for smart young explorers.</p>
-          <button onclick="loadSpaceData()">Refresh NASA Live</button>
-          <p class="muted"><small>Sources used: NASA Open APIs, NASA Image and Video Library API, and NASA news feed through a public CORS reader.</small></p>
+    <div class="badge">⭐ Abdulrahman</div>
+  </nav>
+
+  <section id="home" class="page active">
+    <div class="hero">
+      <h1>Welcome, Abdulrahman! ⭐</h1>
+      <h2>Dream • Explore • Discover</h2>
+      <p>This is your space to explore, learn, and keep your memories and achievements.</p>
+      <div class="explore-btn" onclick="showPage('journal')">🚀 Let's Explore</div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📔</div>
+        <h3>My Journal</h3>
+        <p>Write your thoughts, ideas, and daily adventures.</p>
+        <button onclick="showPage('journal')">Open Journal →</button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🖼️</div>
+        <h3>My Memories</h3>
+        <p>Save your favorite moments and memories.</p>
+        <button onclick="showPage('memories')">View Memories →</button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🌌</div>
+        <h3>NASA & Space</h3>
+        <p>Discover space facts, missions, images, and news.</p>
+        <button onclick="showPage('nasa')">Explore NASA →</button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🎯</div>
+        <h3>Today's Mission</h3>
+        <p>Learn something new about space and write it in your journal.</p>
+        <button onclick="showPage('goals')">Start Mission →</button>
+      </div>
+
+      <div class="card big">
+        <h3>⭐ Daily Motivation</h3>
+        <p><em>“The universe is full of magic things, patiently waiting for our wits to grow sharper.”</em></p>
+        <p>— Eden Phillpotts</p>
+      </div>
+
+      <div class="card big">
+        <h3>🔗 Quick Links</h3>
+        <div class="quick">
+          <div>🎯<br>Goals</div>
+          <div>📚<br>Library</div>
+          <div>🏆<br>Achievements</div>
+          <div>ⓘ<br>About</div>
         </div>
-        <div class="grid">
-          <div class="card"><h2>NASA Picture of the Day</h2><div id="apodBox"><span class="loader"></span>Loading APOD...</div></div>
-          <div class="card"><h2>Latest NASA Stories</h2><div id="newsBox"><span class="loader"></span>Loading NASA stories...</div></div>
-        </div>
-        <div class="card"><h2>Fresh NASA Images</h2><div id="nasaImages" class="grid"><span class="loader"></span>Loading images...</div></div>
-        <div class="card"><h2>Space Facts for Smart Kids</h2><div class="grid">
-          <div class="mini planet"><h3>🌙 The Moon</h3><p>The Moon is Earth's only natural satellite. Astronauts first walked on it during Apollo 11 in 1969.</p></div>
-          <div class="mini planet"><h3>🔴 Mars</h3><p>Mars is called the Red Planet because iron minerals in its soil make it look rusty red.</p></div>
-          <div class="mini planet"><h3>🛰️ ISS</h3><p>The International Space Station is a science laboratory that orbits Earth. Astronauts live and work there.</p></div>
-          <div class="mini planet"><h3>🚀 Artemis</h3><p>NASA's Artemis program is working to send humans back to the Moon and prepare for future Mars missions.</p></div>
-        </div></div>
-        <div class="card quiz"><h2>Mini Space Quiz</h2><p id="quizQuestion">Which planet is known as the Red Planet?</p><button class="choice" onclick="quizAnswer(this,false)">Jupiter</button><button class="choice" onclick="quizAnswer(this,true)">Mars</button><button class="choice" onclick="quizAnswer(this,false)">Venus</button><p id="quizResult" class="gold"></p></div>
-      </section>
-    </main>
-  </div>
+      </div>
+    </div>
+
+    <div class="footer">💙 Keep exploring, keep dreaming! 🚀</div>
+  </section>
+
+  <section id="journal" class="page">
+    <div class="form card">
+      <h1>My Journal 📖</h1>
+
+      <label>Choose Type</label>
+      <select id="entryType">
+        <option>Blog Post</option>
+        <option>Future Goal</option>
+        <option>Beautiful Memory</option>
+      </select>
+
+      <label>Title</label>
+      <input id="entryTitle" placeholder="Write your title here..." />
+
+      <label>Your Words</label>
+      <textarea id="entryText" placeholder="Write anything you want to express..."></textarea>
+
+      <div class="actions">
+        <button class="btn" onclick="saveEntry()">Save Entry</button>
+        <button class="btn" onclick="window.print()">Print</button>
+        <button class="btn" onclick="clearForm()">Clear</button>
+      </div>
+
+      <h2>Saved Entries</h2>
+      <div id="entries"></div>
+    </div>
+  </section>
+
+  <section id="memories" class="page">
+    <div class="form card">
+      <h1>My Memories 🖼️</h1>
+      <p>All beautiful memories saved from the journal will appear here.</p>
+      <div id="memoriesList"></div>
+    </div>
+  </section>
+
+  <section id="nasa" class="page">
+    <div class="nasa-grid">
+      <div class="card">
+        <h1>NASA & Space Explorer 🛰️</h1>
+        <p>This area is for real space learning, NASA missions, planets, rockets, and amazing facts.</p>
+      </div>
+
+      <div class="card">
+        <h2>NASA Picture of the Day</h2>
+        <div id="apod">Loading NASA image...</div>
+      </div>
+
+      <div class="card">
+        <h2>Space Facts for Smart Explorers 🪐</h2>
+        <p>Earth is the only planet we know that has life.</p>
+        <p>Mars is called the Red Planet because of iron dust on its surface.</p>
+        <p>The Moon is about 384,400 km away from Earth.</p>
+      </div>
+
+      <div class="card">
+        <h2>Quick Space Quiz</h2>
+        <p>Which planet is known as the Red Planet?</p>
+        <button onclick="alert('Correct answer: Mars! 🚀')">Check Answer</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="goals" class="page">
+    <div class="form card">
+      <h1>My Goals 🎯</h1>
+      <p>Write your next mission, dream, or learning goal.</p>
+      <input placeholder="Example: Learn 5 facts about Mars" />
+    </div>
+  </section>
+
+  <section id="library" class="page">
+    <div class="form card">
+      <h1>My Little Library 📚</h1>
+      <p>This section will later allow PDF files and writings made by Abdulrahman.</p>
+    </div>
+  </section>
+
+  <section id="about" class="page">
+    <div class="form card">
+      <h1>About Abdulrahman ⭐</h1>
+      <p><strong>Name:</strong> Abdulrahman Abdullah Mutlaq Al-Azmi</p>
+      <p><strong>Interests:</strong> Space Science, NASA, Video Games, and Animal Care.</p>
+      <p><strong>Cat:</strong> Layla, a white Siamese cat. She causes allergies sometimes, but playing with her is still fun.</p>
+      <hr style="border-color:rgba(255,255,255,.15)">
+      <p><strong>From Your Dad ❤️🚀</strong></p>
+      <p>Abdulrahman, you are my greatest pride, my best friend, and the most precious person in my life. I love you more than words can say, and I will always be proud of you.</p>
+    </div>
+  </section>
+</div>
 
 <script>
-const qs=s=>document.querySelector(s), qsa=s=>document.querySelectorAll(s); let selectedImages=[];
-function showPage(id,btn){qsa('.page').forEach(p=>p.classList.remove('active'));qs('#'+id).classList.add('active');qsa('nav button').forEach(b=>b.classList.remove('activeBtn'));if(btn)btn.classList.add('activeBtn'); if(id==='space') loadSpaceDataOnce();}
-function msg(text,type='success'){qs('#saveMsg').innerHTML=`<p class="notice ${type}">${text}</p>`;setTimeout(()=>qs('#saveMsg').innerHTML='',3500)}
-function previewImages(e){selectedImages=[];qs('#imagePreview').innerHTML='';[...e.target.files].slice(0,4).forEach(file=>{if(!file.type.startsWith('image/'))return; const reader=new FileReader();reader.onload=()=>{selectedImages.push(reader.result); const img=document.createElement('img');img.src=reader.result;qs('#imagePreview').appendChild(img)};reader.readAsDataURL(file)})}
-function saveEntry(){const type=qs('#entryType').value;let title=qs('#entryTitle').value.trim();let text=qs('#entryText').value.trim(); if(!title) title='Untitled Entry'; if(!text && selectedImages.length===0){msg('Write something or add at least one picture before saving.','danger');return} const entries=JSON.parse(localStorage.getItem('abdulrahman_entries')||'[]'); entries.unshift({type,title,text,images:selectedImages,date:new Date().toLocaleString()}); try{localStorage.setItem('abdulrahman_entries',JSON.stringify(entries));renderEntries();msg('Saved successfully! 🚀','success');clearForm(false)}catch(e){msg('The entry is too large to save. Try using fewer or smaller pictures.','danger')}}
-function clearForm(clearMessage=true){qs('#entryTitle').value='';qs('#entryText').value='';qs('#entryImages').value='';qs('#imagePreview').innerHTML='';selectedImages=[]; if(clearMessage) msg('Form cleared.','success')}
-function renderEntries(){const entries=JSON.parse(localStorage.getItem('abdulrahman_entries')||'[]'); const box=qs('#entriesList'); if(!entries.length){box.innerHTML='<p class="muted">No saved entries yet. Start writing your first idea!</p>';return} box.innerHTML=entries.map(e=>`<div class="entry"><b>${e.type}: ${escapeHtml(e.title)}</b><p class="muted">${e.date}</p><p>${escapeHtml(e.text).replace(/\n/g,'<br>')}</p><div>${(e.images||[]).map(src=>`<img src="${src}"/>`).join('')}</div></div>`).join('')}
-function clearAllEntries(){if(confirm('Delete all saved entries on this device?')){localStorage.removeItem('abdulrahman_entries');renderEntries();msg('Saved entries deleted.','success')}}
-function escapeHtml(str=''){return str.replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
-let loaded=false;function loadSpaceDataOnce(){if(!loaded){loaded=true;loadSpaceData()}}
-async function loadSpaceData(){loadAPOD();loadNews();loadImages()}
-async function loadAPOD(){const box=qs('#apodBox');box.innerHTML='<span class="loader"></span>Loading APOD...';try{const r=await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');if(!r.ok)throw new Error('APOD failed');const d=await r.json();const media=d.media_type==='image'?`<img class="newsImg" src="${d.url}" alt="${escapeHtml(d.title)}">`:`<p><a href="${d.url}" target="_blank">Open today\'s NASA video</a></p>`;box.innerHTML=`${media}<h3>${escapeHtml(d.title)}</h3><p class="muted">${d.date||''}</p><p>${escapeHtml((d.explanation||'').slice(0,430))}...</p>`}catch(e){box.innerHTML='<p class="notice danger">Could not load NASA Picture of the Day right now. Try again later.</p><p><a href="https://apod.nasa.gov/apod/" target="_blank">Open NASA APOD</a></p>'}}
-async function loadNews(){const box=qs('#newsBox');box.innerHTML='<span class="loader"></span>Loading NASA stories...';try{const url='https://api.allorigins.win/raw?url='+encodeURIComponent('https://www.nasa.gov/news-release/feed/');const r=await fetch(url);if(!r.ok)throw new Error('News failed');const xml=await r.text();const doc=new DOMParser().parseFromString(xml,'text/xml');const items=[...doc.querySelectorAll('item')].slice(0,4);if(!items.length)throw new Error('No items');box.innerHTML=items.map(item=>{let title=item.querySelector('title')?.textContent||'NASA story';let link=item.querySelector('link')?.textContent||'https://www.nasa.gov/news/';let date=item.querySelector('pubDate')?.textContent||'';return `<div class="entry"><b>${escapeHtml(title)}</b><p class="muted">${escapeHtml(date.slice(0,16))}</p><a target="_blank" href="${link}">Read on NASA</a></div>`}).join('')}catch(e){box.innerHTML='<p class="notice">Live news could not load from this browser. You can still open NASA News.</p><p><a href="https://www.nasa.gov/news/" target="_blank">Visit NASA News</a></p>'}}
-async function loadImages(){const box=qs('#nasaImages');box.innerHTML='<span class="loader"></span>Loading images...';try{const year=new Date().getFullYear()-1;const r=await fetch(`https://images-api.nasa.gov/search?q=Artemis%20Mars%20Moon%20space&media_type=image&year_start=${year}`);if(!r.ok)throw new Error('Images failed');const d=await r.json();const items=(d.collection?.items||[]).slice(0,6);if(!items.length)throw new Error('No images');box.innerHTML=items.map(it=>{const data=it.data?.[0]||{};const img=it.links?.[0]?.href||'';return `<div class="mini"><img class="newsImg" src="${img}" alt="NASA image"><h3>${escapeHtml((data.title||'NASA Image').slice(0,70))}</h3><p class="muted">${escapeHtml((data.date_created||'').slice(0,10))}</p></div>`}).join('')}catch(e){box.innerHTML='<p class="notice danger">Could not load NASA images right now.</p>'}}
-function quizAnswer(btn,ok){qs('#quizResult').textContent=ok?'Correct! Mars is the Red Planet. 🔴🚀':'Try again, explorer!';}
+function showPage(id, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.links a').forEach(a=>a.classList.remove('active'));
+  if(el) el.classList.add('active');
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function saveEntry(){
+  const type=document.getElementById('entryType').value;
+  const title=document.getElementById('entryTitle').value.trim();
+  const text=document.getElementById('entryText').value.trim();
+
+  if(!title || !text){
+    alert('Please write a title and text first.');
+    return;
+  }
+
+  const entry={type,title,text,date:new Date().toLocaleString()};
+  const entries=JSON.parse(localStorage.getItem('abdulrahman_entries')||'[]');
+  entries.unshift(entry);
+  localStorage.setItem('abdulrahman_entries',JSON.stringify(entries));
+
+  clearForm();
+  renderEntries();
+  alert('Saved successfully! 🚀');
+}
+
+function clearForm(){
+  document.getElementById('entryTitle').value='';
+  document.getElementById('entryText').value='';
+}
+
+function renderEntries(){
+  const entries=JSON.parse(localStorage.getItem('abdulrahman_entries')||'[]');
+  const box=document.getElementById('entries');
+  const mem=document.getElementById('memoriesList');
+
+  if(entries.length===0){
+    box.innerHTML='<p>No saved entries yet.</p>';
+    mem.innerHTML='<p>No memories saved yet.</p>';
+    return;
+  }
+
+  box.innerHTML=entries.map(e=>`
+    <div class="entry">
+      <strong>${e.type}</strong>
+      <h3>${e.title}</h3>
+      <p>${e.text}</p>
+      <small>${e.date}</small>
+    </div>
+  `).join('');
+
+  mem.innerHTML=entries.filter(e=>e.type==='Beautiful Memory').map(e=>`
+    <div class="entry">
+      <h3>${e.title}</h3>
+      <p>${e.text}</p>
+      <small>${e.date}</small>
+    </div>
+  `).join('') || '<p>No beautiful memories yet.</p>';
+}
+
+async function loadAPOD(){
+  const box=document.getElementById('apod');
+  try{
+    const res=await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
+    const data=await res.json();
+    box.innerHTML=`
+      <h3>${data.title||'NASA Image'}</h3>
+      ${data.url ? `<img class="nasa-img" src="${data.url}" alt="NASA Picture">` : ''}
+      <p>${data.explanation ? data.explanation.substring(0,260)+'...' : ''}</p>
+    `;
+  }catch(e){
+    box.innerHTML='<p style="color:#ffc857">Could not load NASA image right now.</p>';
+  }
+}
+
 renderEntries();
+loadAPOD();
 </script>
 </body>
 </html>
